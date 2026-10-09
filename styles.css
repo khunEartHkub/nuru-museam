@@ -1,0 +1,209 @@
+/* ==========================================================================
+   GRURU MUSEUM — Future Archaeology Digital Museum
+   Light Tech Design System & Styling Tokens
+   ========================================================================== */
+
+/* 1. DESIGN TOKENS & CSS VARIABLES */
+:root {
+  /* Surfaces & Grid (Light Tech Palette) */
+  --gr-paper: #F8FAFC;
+  --gr-card: #FFFFFF;
+  --gr-void: #0F172A;
+  --gr-graphite: #334155;
+  --gr-grid: #E2E8F0;
+  --gr-fog: #64748B;
+  
+  /* Brand Accents */
+  --gr-lime: #84CC16;
+  --gr-lime-bright: #D7FF3A;
+  --gr-ember: #FF5A1F;
+  --gr-violet: #8C6BFF;
+  --gr-cyan: #06B6D4;
+  --gr-cyan-bright: #2EE6FF;
+  --gr-amber: #FFC233;
+  --gr-bio-green: #34E89E;
+  --gr-coral: #FF5FA2;
+
+  /* Typography */
+  --font-heading: 'Chakra Petch', sans-serif;
+  --font-body: 'IBM Plex Sans Thai', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Motion tokens */
+  --ease-sci-fi: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. BASE STYLES */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--gr-paper);
+  color: var(--gr-void);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Specimen Paper Grid Background */
+.specimen-grid-bg {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(226, 232, 240, 0.8) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.8) 1px, transparent 1px);
+}
+
+/* 3. SHAPE & CUT-CORNER UTILITIES */
+.cut-corner {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+
+.cut-corner-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.cut-corner-lg {
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+}
+
+/* 4. HUD CARD COMPONENTS */
+.hud-card {
+  background: var(--gr-card);
+  border: 1px solid var(--gr-grid);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  transition: all 0.25s var(--ease-sci-fi);
+  position: relative;
+}
+
+.hud-card:hover {
+  border-color: var(--gr-cyan);
+  box-shadow: 4px 4px 0px var(--gr-ember);
+  transform: translateY(-2px);
+}
+
+/* Specimen HUD Badge */
+.specimen-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: var(--gr-graphite);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 5. BUTTONS & INTERACTION */
+.btn-sci-fi {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gr-void);
+  background-color: var(--gr-lime);
+  padding: 12px 28px;
+  border: 2px solid var(--gr-void);
+  box-shadow: 4px 4px 0px var(--gr-ember);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s var(--ease-sci-fi);
+  text-decoration: none;
+}
+
+.btn-sci-fi:hover {
+  background-color: #93E019;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--gr-ember);
+}
+
+.btn-sci-fi:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--gr-ember);
+}
+
+.btn-outline-sci-fi {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gr-void);
+  background: transparent;
+  padding: 12px 24px;
+  border: 2px solid var(--gr-void);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-outline-sci-fi:hover {
+  background: var(--gr-void);
+  color: #FFFFFF;
+}
+
+/* 6. GLITCH & SCANLINE ANIMATIONS */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.scanline-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(132, 204, 22, 0.4);
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
+}
+
+/* Pulse Rings */
+@keyframes radar-pulse {
+  0% { transform: scale(0.9); opacity: 0.9; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+  100% { transform: scale(0.9); opacity: 0.9; }
+}
+
+.pulse-node {
+  animation: radar-pulse 2s infinite ease-in-out;
+}
+
+/* 7. DOMAIN COLOR BADGES */
+.badge-sci { background: rgba(6, 182, 212, 0.15); color: #0891B2; border: 1px solid #06B6D4; }
+.badge-his { background: rgba(255, 90, 31, 0.15); color: #C2410C; border: 1px solid #FF5A1F; }
+.badge-tech { background: rgba(140, 107, 255, 0.15); color: #6D28D9; border: 1px solid #8C6BFF; }
+.badge-cul { background: rgba(255, 194, 51, 0.2); color: #B45309; border: 1px solid #D97706; }
+.badge-bio { background: rgba(52, 232, 158, 0.2); color: #047857; border: 1px solid #059669; }
+.badge-art { background: rgba(255, 95, 162, 0.2); color: #BE185D; border: 1px solid #DB2777; }
+
+/* 8. SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #94A3B8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gr-void);
+}
